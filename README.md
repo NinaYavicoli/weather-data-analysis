@@ -1,6 +1,6 @@
 ## Description
 
-This program retrieves historical weather data for a selected location and date using the Open-Meteo API. It collects data for the most recent five years and calculates summary statistics for temperature, wind speed, and precipitation, including averages, sums, and minimum/maximum values.
+This program was created in PyCharm and retrieves historical weather data for a selected location and date using the Open-Meteo API. It collects data for the most recent five years and calculates summary statistics for temperature, wind speed, and precipitation, including averages, sums, and minimum/maximum values.
 
 The program is organized into three files:
 
