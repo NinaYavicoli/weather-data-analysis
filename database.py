@@ -1,9 +1,11 @@
+# This file defines the database structure using SQLAlchemy and creates the SQLite database
+
 from sqlalchemy import create_engine, Column, Integer, Float
-from sqlalchemy.orm import declarative_base, base
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
-#Class to define Database structure
+# C4: Creates the table and defines columns and datatypes
 class HistWeather(Base):
     __tablename__ = 'hist_weather'
 
@@ -26,4 +28,5 @@ class HistWeather(Base):
     min_precip = Column(Float)
     max_precip = Column(Float)
 
+# Create SQLite database file
 engine = create_engine('sqlite:///weather.db')
