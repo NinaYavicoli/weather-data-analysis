@@ -1,14 +1,18 @@
+# This file contains the WeatherData class that stores the location and date input, retrieves data from the API and calculates the summary statistics
+
 import requests
-# class creation (c1)
+# Class creation (C1)
 class WeatherData:
     def __init__(self, latitude, longitude, month, day, year):
-#initialized with location and date information
+
+        # Initialize object with location and date information
         self.latitude = latitude
         self.longitude = longitude
         self.month = month
         self.day = day
         self.year = year
-#WeatherData initially set equal to nothing
+
+        # Weather statistics initially set to nothing
         self.avg_temp = None
         self.min_temp = None
         self.max_temp = None
@@ -21,16 +25,15 @@ class WeatherData:
         self.min_precip = None
         self.max_precip = None
 
-
-#make single API call and store data into lists
+    # C2/C3: One method to collect all the data and reduce redundant API calls
     def get_data(self):
             temps_list = []
             winds_list = []
             precip_list = []
-
+    # Loops through the most recent five years and stores daily values
             for i in range(5):
                     c_year = self.year - i
-                    date = f"{c_year:02d}-{self.month:02d}-{self.day:02d}"
+                    date = f"{c_year}-{self.month:02d}-{self.day:02d}"
 
                     url = (
                             "https://archive-api.open-meteo.com/v1/archive"
@@ -49,7 +52,7 @@ class WeatherData:
                     winds_list.append(data["daily"]["wind_speed_10m_max"][0])
                     precip_list.append(data["daily"]["precipitation_sum"][0])
 
-    # methods to make calculations
+            # Calculate summary statistics
             self.avg_temp = sum(temps_list) / len(temps_list)
             self.min_temp = min(temps_list)
             self.max_temp = max(temps_list)
@@ -62,4 +65,5 @@ class WeatherData:
             self.min_precip = min(precip_list)
             self.max_precip = max(precip_list)
 
+            # Return lists for testing purposes
             return temps_list, winds_list, precip_list
