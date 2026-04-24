@@ -1,4 +1,5 @@
-# testing will use a different set of location and date data than main program
+# (D) This file will be used to run three tests against my code to ensure functionality
+# Testing will use a different set of location and date data than main program to verify reusability
 
 def testing():
     from weather import WeatherData
