@@ -1,22 +1,24 @@
+# This file runs the program by creating the WeatherData object, inserts results into the database and displays the queried output.
+
 from weather import WeatherData
 from database import HistWeather, engine, Base
 from sqlalchemy.orm import sessionmaker
 
-# reset database for each run
+# Reset database for each run
 Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine)
 
-#creating weather object to use in methods later
+# Creating WeatherData objecting using predefined location and date values
 weather = WeatherData(42.9039, -78.6923, 1, 14, 2026)
 
-#weather objects
+# Retrieve and calculate weather data
 weather.get_data()
 
-#create session
+# Create database session
 Session = sessionmaker(bind=engine)
 session = Session()
 
-#create database record
+# C5: Populate table created in database.py using values from the WeatherData object
 record = HistWeather(
     latitude = weather.latitude,
     longitude = weather.longitude,
@@ -34,16 +36,16 @@ record = HistWeather(
     max_precip = weather.max_precip,
 )
 
-#insert row
+# Insert row into database and commit transition
 session.add(record)
 session.commit()
 
-# query table
+# C6: Query the database for the stored results
 results = session.query(HistWeather).all()
 
-#show results in formatted table using fixed column widths
+# Display results using in a formatted table
 for row in results:
-    print(f"\nMonth: {row.month:02d} | Day: {row.day:02d} | Year Range: 2022 - 2026")
+    print(f"\nMonth: {row.month:02d} | Day: {row.day:02d} | Year Range: {row.year - 4} - {row.year}")
     print(f"Lat: {row.latitude} | Long: {row.longitude}\n")
 
     print("Summary of five-year weather data:\n")
